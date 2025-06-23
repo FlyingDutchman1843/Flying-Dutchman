@@ -1,0 +1,102 @@
+** start of index.html **
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Roman Numeral Converter">
+    <title>Roman Numeral Converter</title>
+    <link rel="stylesheet" href="styles.css">
+  </head>
+  <body>
+    <h1>Roman Numeral Converter</h1>
+    <div id="container">
+    <h2>It slices, it dices, it makes Julienne Fries, and converts numbers to Roman Numerals</h2>
+    <input id="number" type="number" min="1" max="3999"><br>
+    <button id="convert-btn">Convert</button>
+    </div>
+    <p id="output"></p>
+  </body>
+  <script src="script.js"></script>
+</html>
+
+** end of index.html **
+
+** start of script.js **
+
+const numberInput = document.getElementById("number");
+const button = document.getElementById("convert-btn");
+const output = document.getElementById("output")
+const romNumList = {"M":1000, "CM":900, "D":500, "CD":400, "C": 100, "XC":90, "L":50, "XL":40, "X":10,"IX":9, "V":5, "IV":4, "I":1}
+
+function makeRoman(num) {
+  if (num < 0){
+    return "Please enter a number greater than or equal to 1";
+  }
+  if (num >= 4000){
+    return "Please enter a number less than or equal to 3999";
+  }
+  if (num === 0){
+    return "";
+  }
+  for (let romNum in romNumList){
+	  if (num >= romNumList[romNum]){
+		  return romNum + makeRoman(num - romNumList[romNum])
+      }
+    }
+  }
+
+button.addEventListener("click", () => {
+  if (!parseInt(numberInput.value) || numberInput.value.includes(".")||numberInput.value.includes("e")){
+    output.innerText = "Please enter a valid number";
+  } else if (parseInt(numberInput.value) === 0){
+      output.innerText = "Please enter a number greater than or equal to 1";
+  } else{
+      output.innerText = makeRoman(parseInt(numberInput.value));
+  }
+})
+
+numberInput.addEventListener("keydown", (event) => {
+  if (event.key === "Enter"){
+    button.click();
+  }
+
+})
+
+
+** end of script.js **
+
+** start of styles.css **
+
+html{
+  background: linear-gradient(#070C7A, white);
+  color: white;
+  text-align: center;
+  height: 100rem
+}
+#container{
+  background-color: white;
+  color: #332A05;
+  text-align: center;
+  padding: 2rem;
+  margin: 0 20%;
+}
+#number{
+  display: block;
+  margin: auto;
+  width: 50%;
+  font-size: 2rem;
+  }
+#convert-btn{
+  font-size: 1rem;
+  border: solid black;
+  background: white;
+  border-radius: 10px;
+}
+#output{
+  font-size: 2rem
+}
+
+** end of styles.css **
+

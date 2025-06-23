@@ -1,0 +1,29 @@
+function solution(list){
+  let currentRange = [];
+  let output = "";
+  for (let i=0; i < list.length; i++){
+    if (currentRange.length === 0 || list.at(i) === currentRange.at(-1) + 1){
+      currentRange.push(list.at(i));
+      if (i === list.length - 1){
+        output += `${currentRange.at(0)}-${currentRange.at(-1)}`
+      }
+    }
+    else if(currentRange.length < 3){
+      output += `${currentRange.join()}`;
+      currentRange = [];
+      if (i !== list.length -1){
+        output += ",";
+        
+      } i--
+    }else{
+      output += `${currentRange.at(0)}-${currentRange.at(-1)}`
+      currentRange = [];
+      if (i !== list.length -1){
+        output += ","
+        }
+      i--;
+    }
+      
+    }return output
+ }
+ 

@@ -1,0 +1,23 @@
+** start of script.js **
+
+
+function permAlone(str){
+  let arr = str.split("")
+  let finalArr = [];
+  function process(arr, str){
+    for (let i=0; i < arr.length; i++){
+      if (arr.length === 1 && arr[0] !== str.at(-1)){
+       finalArr.push(str.concat(arr[0]));
+      }else if(arr[i] !== str.at(-1)){
+        process(arr.filter((_el, index) => index !== i),str.concat(arr[i]));
+        
+     }
+    } 
+  } process(arr, "");
+  return finalArr.length
+}
+
+permAlone('aab');
+
+** end of script.js **
+

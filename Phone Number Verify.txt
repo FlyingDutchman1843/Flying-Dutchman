@@ -1,0 +1,14 @@
+const num = "1(222)222-2222";
+
+const templates = ["555-555-5555", "(555) 555-5555", "(555)555-5555", "555 555 5555","5555555555"];
+
+function numCheck(n){
+  if (n.startsWith("1 ")||n.startsWith("1(")){
+    n = n.replace("1", "").trim()
+  }
+  n = n.replaceAll(/[0-9]/g,"5" )
+  console.log(n)
+  return templates.some((template) => template === n)
+}
+
+console.log(numCheck(num))

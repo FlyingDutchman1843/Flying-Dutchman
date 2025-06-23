@@ -1,0 +1,18 @@
+let arr = ["s","t","o","p"]
+
+function produceAllCombos(arr){
+  let finalArr = [];
+  function process(arr, str){
+    console.log(arr, str);
+    for (let i=0; i < arr.length; i++){
+      if (arr.length === 1){
+       finalArr.push(str.concat(arr[0]));
+      }else{
+        process(arr.filter((el, index) => index !== i),str.concat(arr[i]));
+        
+     }
+    } 
+  } process(arr, "");
+  return finalArr
+}
+console.log(produceAllCombos(arr).length)

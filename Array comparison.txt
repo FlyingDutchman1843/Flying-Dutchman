@@ -1,0 +1,15 @@
+let myArray = [12,23,45,1,[12,90]];
+
+function arrMap(arr){
+  arr.forEach((obj, i) => {
+    if (typeof obj === "number"){
+        arr[i] = 0
+    }
+    if (typeof obj === "object"){
+      arrMap(obj);
+    }
+  })
+};
+
+arrMap(myArray);
+console.log(myArray)

@@ -1,0 +1,119 @@
+** start of index.html **
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name=“viewport” content=“width=device-width, initial-scale=1.0”>
+    <meta name="description" content="palindrome checker">
+    <link rel="stylesheet" href="styles.css">
+    <title>Palindrome Checker</title>
+  </head>
+  <body>
+    <h1>Palindrome Checker</h1>
+    <h2>Have a palindrome that needs to be checked? You've come to the right place.</h2>
+    <div id="container">
+      <h3>Type your phrase here.<br> Is it a palindrome? Let's find out!</h3>
+      <input id="text-input" type="text">
+      <button id="check-btn" type="button">Check</button>
+    </div>
+    <p id="result"></p>
+  </body>
+  <script src="script.js"></script>
+</html>
+
+** end of index.html **
+
+** start of script.js **
+
+const textInput = document.getElementById("text-input");
+const checkBtn = document.getElementById("check-btn");
+const resultText = document.getElementById("result");
+
+checkBtn.addEventListener("click", checkInput);
+
+textInput.addEventListener("keypress", (event) => {
+    if (event.key === "Enter"){
+        checkBtn.click();
+    }
+})
+
+function checkInput(){
+  if (textInput.value === ""){
+      alert("Please input a value");
+      return;
+  }
+  let letterArray = textInput.value.toLowerCase().match(/[a-z0-9]/g);
+  if (letterArray === null){
+      alert("Please input a value with at least one number or letter");
+      return;
+  }
+  if (check(letterArray)){
+      resultText.innerText = `${textInput.value} is a palindrome`;
+  }
+  else{
+      resultText.innerText = `${textInput.value} is not a palindrome`
+  }
+  textInput.value = "";
+}
+
+function check(arr){
+    if (arr.length === 1){
+        return true;
+    }
+    for (let i=1; i <= Math.floor(arr.length/2); i++){
+        if (arr.at(i-1) !== arr.at(-i)){
+            return false
+            }
+        }
+        return true
+        }
+    
+
+** end of script.js **
+
+** start of styles.css **
+
+html{
+  margin: 0;
+}
+body{
+  background-color: blue;
+  color: white;
+  text-align: center;
+  font-family: georgia, helvetica, sans-serif;
+  margin-top: 5em;
+}
+#container{
+  background-color: white;
+  color: black;
+  width: max-content;
+  display: block;
+  margin: auto;
+  padding: 1em 2em 0 2em;
+  border-radius: 1em;
+  border: solid 2px black;
+}
+#text-input{
+  border: solid 2px black;
+}
+#check-btn{
+  display: block;
+  margin: 2em auto;
+  border: solid 2px black;
+  border-radius: 1em;
+  cursor: pointer;
+  background-color: white;
+}
+#check-btn:hover{
+  color: white;
+  background-color: black;
+}
+#check-btn:active{
+  background-color: black;
+  color: black;
+}
+
+
+** end of styles.css **
+

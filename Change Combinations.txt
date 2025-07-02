@@ -1,0 +1,15 @@
+function countChange(money, coins) {
+  // your implementation here
+  let counts = []
+  function addCoin(currentAmount, currentCount){
+    for (const coin of coins){
+      if (coin === currentAmount){
+          counts.push(currentCount.concat(coin));         
+        }else if (coin < currentAmount){      
+          addCoin(currentAmount - coin, currentCount.concat(coin))          
+        }
+      }
+    }addCoin(money, []);
+    return counts
+  }
+  console.log(countChange(10, [5,2,3]))

@@ -1,26 +1,39 @@
-const express = require("express")
-const app = express()
+import express from "express";
+import cors from "cors";
+import e from "express";
 
-app.get("/", (req, res) => {
-    res.send("Welcome to Camper Bot's homepage!")
-})
+const app = express();
 
-app.get("/hobbies", (req, res) => {
-    res.send("I cycle, go boating, and play guitar.")
-})
+app.use(cors({ optionsSuccessStatus: 200 }));
 
-app.get("/skills", (req, res) => {
-    res.send("JavaScript, Node.js, and Express.js!")
-})
+app.use(express.static("public"));
 
-app.get("/api/profile", (req, res) => {
-    res.json({
-        "name": "Camper Bot",
-        "hobbies": ["cycling", "boating", "guitar"],
-        "skills": ["JavaScript", "Node.js", "Express.js"]
-    })
-})
+app.get("/", (_req, res) => {
+  res.sendFile(import.meta.dirname + "/views/index.html");
+});
 
-app.listen(3000, () => {
-    console.log("Listening on Port 3000")
-})
+// Do not change code above this line
+app.get("/api", (req, res) => {
+  const currentDate = new Date()
+  res.json({unix: currentDate.getTime(), utc: currentDate.toUTCString()})
+} )
+
+app.get("/api/:date", (req, res) => {
+    try {
+      const dateInput = new Date(Number(req.params.date) || req.params.date)
+      if (!dateInput.getTime()) {
+        throw new Error() 
+        }
+      res.json({ unix: dateInput.getTime(), utc: dateInput.toUTCString()})
+        }
+    catch {
+      res.json({error: "Invalid Date"})
+      }
+    }
+  )
+// Do not change code below this line
+
+const PORT = 8000;
+const listener = app.listen(PORT, function () {
+  console.log("Your app is listening on port " + listener.address().port);
+});
